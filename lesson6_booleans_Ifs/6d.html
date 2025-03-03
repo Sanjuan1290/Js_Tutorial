@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6d</title>
+</head>
+<body>
+    
+    <script>
+        let age = Math.floor(Math.random() * 100) + 1;
+        let isHoliday = Math.floor(Math.random() * 1.99) ? true : false;
+
+        console.log(age + "   " + isHoliday)
+
+        if((age <= 6  && isHoliday) || (age >= 65 && isHoliday)) console.log(`age is ${age} you GET a Discount!`)
+        else {
+            console.log(`age is ${age} you DONT get a discount!`)
+            alert("hatdog")
+        }
+            
+    </script>
+</body>
+</html>

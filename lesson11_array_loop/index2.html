@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>arrays and loops exercise</title>
+</head>
+<body>
+
+    <script>
+        let nums = [1, 20, 22, 24, 5];
+        let swappedNums = arraySwap(nums);
+
+        console.log(swappedNums)
+        console.log(arraySwap(['hi', 'hello', 'good']));
+        console.log(addOne(nums, 2));
+
+        function arraySwap(array){
+            let arrayLastValue = array.length-1;
+            let swapValueArray = []
+            for(let i = 0; i < array.length; i++){
+                swapValueArray[i] = array[arrayLastValue - i]
+            }
+
+            return swapValueArray;
+        }
+
+        function addOne(array, num){
+            for (let i = 0; i < array.length; i++) {
+                array[i]+= num;
+            }
+
+            return array
+        }
+
+    </script>
+    
+</body>
+</html>

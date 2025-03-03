@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissor</title>
+</head>
+<body>
+    <div>
+        <p>Rock Paper Scissors</p>
+
+        <div class="btn_container">
+            <button onclick="userInput(`Rock`)">Rock</button>
+            <button onclick="userInput(`Paper`)">Paper</button>
+            <button onclick="userInput(`Scissor`)">Scissor</button>
+        </div>
+
+        <p class="score">Wins: 0, Losses: 0, Ties: 0</p>
+
+        <button onclick="resetScore()">Reset Score</button>
+    </div>
+
+    <script>
+        const score_Element = document.querySelector('.score');
+        let score = JSON.parse(localStorage.getItem("savedScore"));
+
+        if(!score){
+            score = {
+                wins: 0,
+                loss: 0,
+                ties: 0
+            }
+        }
+        score_Element.innerHTML = `Wins: ${score.wins}, Losses: ${score.loss}, Ties: ${score.ties}`;
+
+        function userInput(input){
+            let random = Math.floor(Math.random() * 3) + 1;
+            let computerInput = "";
+
+            if(random == 1) computerInput = "Rock";
+            else if (random == 2) computerInput = "Paper";
+            else if (random == 3) computerInput = "Scissor";
+
+            if(input === "Rock" && computerInput === "Scissor"){
+                score.wins += 1;
+            } else if(input === "Paper" && computerInput === "Rock"){
+                score.wins += 1;
+            } else if(input === "Scissor" && computerInput === "Paper"){
+                score.wins += 1;
+            } else if(input === computerInput) {
+                score.ties += 1;
+            } else {
+                score.loss += 1;
+            }
+
+            score_Element.innerHTML = `Wins: ${score.wins}, Losses: ${score.loss}, Ties: ${score.ties}`;
+
+            localStorage.setItem("savedScore", JSON.stringify(score))
+        }
+
+        function resetScore(){
+            score = {
+                wins: 0,
+                loss: 0,
+                ties: 0
+            }
+            score_Element.innerHTML = `Wins: ${score.wins}, Losses: ${score.loss}, Ties: ${score.ties}`;
+            localStorage.setItem("savedScore", JSON.stringify(score))
+        }   
+    </script>
+</body>
+</html>

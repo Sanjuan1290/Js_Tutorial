@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <button onclick="userInput(`heads`)">heads</button>
+    <button onclick="userInput(`tails`)">tails</button>
+    <p class="chosen"></p>
+
+    <input onkeydown="displayName_onEnter(event)" class="userName" type="text" placeholder="Name">
+    <button onclick="displayName()">Submit</button>
+    <p class="showUserName"></p>
+
+    <script>
+
+        function userInput(input){
+            document.querySelector('.chosen').innerHTML = `you chose: ${input}`
+        }
+
+        function displayName(){
+            let name = document.querySelector('.userName').value;
+            document.querySelector('.showUserName').innerHTML = `Your name is: ${name}`;
+        }
+        function displayName_onEnter(event){
+            event.key === "Enter" ? displayName() : "";
+        }
+    </script>
+</body>
+</html>

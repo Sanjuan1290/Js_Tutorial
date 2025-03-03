@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM</title>
+</head>
+
+<style>
+    .container-3{
+        height: 180px;
+    }
+</style>
+<body>
+    
+    <div class="container-1">
+        <p>Youtube subscribe Button</p>
+        <button onclick="subscribeBtn()" class="subscribe_Btn">Subscribe</button>
+    </div>
+
+    <br>
+    <div class="container-2">
+        <p>Rock Paper Scissors</p>
+        <a href="#">Click here</a>
+    </div>
+
+    <br>
+    <div class="container-3">
+        <p>Amazon Shipping Calculator</p>
+        <p>Orders under $40 = +$10 shipping.</p>
+        <p>Orders over $40 = FREE shipping</p>
+
+        <input onkeydown="handleCostkeydown(event)" type="text" class="inputPrice">
+        <button onclick="calculatePrice()" class="calculate_Btn">Calculate</button>
+        <div class="totalPrice_container"></div>
+    </div>
+
+
+    <a href="#">CSS version of these projects</a>
+    <script>
+        function subscribeBtn(){
+            if(document.querySelector('.subscribe_Btn').innerHTML.trim() === "Subscribe"){
+                document.querySelector('.subscribe_Btn').innerHTML = "Subscribed";
+            }else document.querySelector('.subscribe_Btn').innerHTML = "Subscribe"
+        }
+
+        function handleCostkeydown(event){
+            if(event.key === "Enter") calculatePrice();
+        }
+
+        function calculatePrice(){
+            const inputPrice_Element = document.querySelector(".inputPrice");
+            const totalPrice_container_Element = document.querySelector(".totalPrice_container");
+
+            let price = parseFloat(inputPrice_Element.value);
+            price >= 40 ? price : price+=10;
+
+            totalPrice_container_Element.innerHTML = `<p>$${parseFloat(price.toFixed(2))}</p>`;
+
+        }
+    </script>
+</body>
+</html>

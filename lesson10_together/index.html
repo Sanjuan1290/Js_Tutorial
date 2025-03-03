@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson 10</title>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            margin: 20px;
+        }
+        .amazon_btn{
+            background-color: rgb(255,216,20);
+            border: none;
+            padding: 5px 30px;
+            border-radius: 20px;
+        }
+        .uberBtn{
+            padding: 10px 14px;
+            background-color: black;
+            color: white;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: bold;
+            border: none;
+        }
+        .schedBtn{
+            background-color: rgb(230, 230, 230);
+            color: black;
+        }
+
+        .gamingBtn{
+            background-color: rgb(230, 230, 230);
+            border: none;
+            padding: 8px;
+            border-radius: 3px;
+        }
+        .gamingBtn:hover{
+            cursor: pointer;
+        }
+        .is-toggled{
+            background-color: black;
+            color: white;
+        }
+
+        .threeBtn{
+            border: none;
+            border-radius: 3px;
+            padding: 10px;
+        }
+        .threeBtn:hover{
+            cursor: pointer;
+        }
+        .isClicked{
+            background-color: black;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <button class="amazon_btn">Add to Cart</button>
+
+    <button class="uberBtn requestBtn">Request now</button>
+    <button class="uberBtn schedBtn">Schedule for later</button>
+
+    <button class="js-button btn">Test</button>
+
+    <button onclick="isGaming()" class="gamingBtn">Gaming</button>
+
+    <br>
+    <br>
+    <button class="threeBtn">Gaming</button>
+    <button class="threeBtn">Music</button>
+    <button class="threeBtn">Tech</button>
+
+
+    <script>
+        console.log(document.querySelector('.btn').classList.contains('js-button'))
+        function isGaming(){
+            const gamingBtn_elem = document.querySelector('.gamingBtn');
+
+            gamingBtn_elem.classList.contains('is-toggled') ?  gamingBtn_elem.classList.remove('is-toggled') : gamingBtn_elem.classList.add('is-toggled');
+        }
+
+
+        const threeBtn_elem = document.querySelectorAll('.threeBtn');
+
+
+        threeBtn_elem.forEach(button => {
+            button.addEventListener("click", () =>{
+                if(button.classList.contains('isClicked')){
+                    threeBtn_elem.forEach(btn => {
+                        btn.classList.remove('isClicked')
+                    });
+                }else{
+                    threeBtn_elem.forEach(btn => {
+                        btn.classList.remove('isClicked')
+                    });
+                    button.classList.add('isClicked');
+                }
+            });
+        });
+
+
+        console.log(threeBtn_elem)
+
+        
+    </script>
+</body>
+</html>

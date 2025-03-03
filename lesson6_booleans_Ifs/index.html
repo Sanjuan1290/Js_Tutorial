@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rock-paper-scissor</title>
+
+    <style>
+        body{
+            background-color: rgb(12, 12, 12);
+            margin: 20px 10px;
+        }
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .title {
+            font-size: 40px;
+            font-weight: bold;
+            color: white;
+        }
+        .images img{
+            width: 100px;
+            border: 3px solid rgb(236, 236, 236);
+            margin-left: 10px;
+            border-radius: 100%;
+        }
+
+        .userPick_computerPick img{
+            width: 50px;
+            border: 1px solid rgb(109, 79, 79);
+            border-radius: 100%;
+        }
+        .resetBtn{
+            border-radius: 3px;
+            font-size: 16px;
+            padding: 5px 8px;
+            border: none;
+        }
+        .resetBtn:hover{
+            cursor: pointer;
+            opacity: 90%;
+        }
+        .whoWin{
+            color: white;
+            font-weight: bold;
+            margin: 20px 0px;
+            font-size: 20px;
+        }
+        .userPick_computerPick{
+            color: white;
+            margin: 20px 0px;
+        }
+        .score{
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    
+    <p class="title">Rock Paper Scissors</p>
+    
+    <div class="images">
+        <img onclick=" userAnswer = 'rock'; throwComputer()" src="rock.png" alt="rock">
+        <img onclick=" userAnswer = 'paper';  throwComputer()" src="paper.png" alt="paper">
+        <img onclick=" userAnswer = 'scissor'; throwComputer()" src="scissor.png" alt="scissor">
+    </div>
+
+    
+    <div class="result">
+        <div class="whoWin"></div>
+        <div class="userPick_computerPick"></div>
+    </div>
+
+    <div class="score"></div>
+
+    <button class="resetBtn" onclick="resetScore()">Reset Score</button>
+
+    <script>
+        let userScore = 0;
+        let computerScore = 0;
+        let tieScore = 0;
+
+        let userAnswer = '';
+        let message = '';
+
+        let computer = 0;
+        let computerAnswer = '';
+
+        function throwComputer(){
+            computer =  Math.floor(Math.random() * 3) + 1;
+            computerAnswer = '';
+
+            if(computer === 1) computerAnswer = 'rock'
+            else if(computer === 2) computerAnswer = 'paper'
+            else if(computer === 3) computerAnswer = 'scissor'
+
+            if((userAnswer === 'rock' && computerAnswer === 'scissor') || 
+            (userAnswer === 'paper' && computerAnswer === 'rock') ||
+            (userAnswer === 'scissor' && computerAnswer === 'paper')) {
+                userScore++;
+                message = "You Win"
+            }
+            else if(userAnswer === computerAnswer) {
+                tieScore++;
+                message = "Tie"
+            }
+            else {
+                computerScore++;
+                message = "You Loss"
+            }
+
+            display();
+          // 3:18
+        }
+
+        function resetScore(){
+            userScore = 0;
+            computerScore = 0; 
+            tieScore = 0
+            message = '';
+            display();
+        }
+
+        function display(){
+            const whoWin = document.getElementsByClassName('whoWin')[0];
+            whoWin.innerHTML = '';
+            whoWin.innerHTML += `<p>${message}</p>`;
+            
+            const userPick_computerPick = document.getElementsByClassName('userPick_computerPick')[0];
+            userPick_computerPick.innerHTML = '';
+            userPick_computerPick.innerHTML += `<p>You <img src="${userAnswer}.png" alt="${userAnswer}"> <img src="${computerAnswer}.png" alt="${computerAnswer}"> Computer</p>`
+
+
+            const score = document.getElementsByClassName('score')[0];
+            score.innerHTML = '';
+            score.innerHTML += `<p>Wins: ${userScore}, Loss: ${computerScore}, Ties: ${tieScore}</p>`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objects</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: Montserrat;
+        }
+        body{
+            background-color: black;
+            padding: 20px 0px 0px 20px;
+        }
+        p, h1, h2{
+            color: white;
+        }
+
+        .image-container img{
+            width: 90px;
+            border-radius: 100%;
+            margin-right: 10px;
+            padding: 10px;
+            background-color: aliceblue;
+            margin-top: 10px;
+            transition: transform .15s;
+        }
+        .image-container img:hover{
+            cursor: pointer;
+            transform: scale(120%);
+        }
+
+        .user_computer_answer-container{
+            display: flex;
+            align-items: center;
+        }
+        .user_computer_answer-container img{
+            width: 50px;
+            border-radius: 100%;
+            padding: 10px;
+        }
+    </style>
+
+</head>
+<body>
+    
+    <h1>Rock - Paper - Scissor </h1>
+
+    <div class="image-container">
+        <img onclick="userAnswer(`rock`)" src="/javascript_tutorial/leeson8_objects/rock.png" alt="rock">
+        <img onclick="userAnswer(`paper`)" src="/javascript_tutorial/leeson8_objects/paper.png" alt="paper">
+        <img onclick="userAnswer(`scissor`)" src="/javascript_tutorial/leeson8_objects/scissor.png" alt="scissor">
+    </div>
+    
+    <div class="whoWin"></div>
+
+    <div class="user_computer_answer-container"></div>
+
+    <div class="score-container">
+        <h2>Score:</h2>
+        <p>Wins: 0 | Loss: 0 | Tie: 0</p>
+    </div>
+
+    <button class="resetBtn" onclick="reset()">reset</button>
+
+
+<script>
+    let who_Win = "";
+    let score = JSON.parse(localStorage.getItem("savedScore"));
+    if(!score){
+        score = {
+            win: 0,
+            loss: 0,
+            tie: 0
+        };
+    }
+
+
+    function userAnswer(answer){
+        // 1 = rock : 2 = paper : 3 = scissor
+        let computerRandom = Math.floor(Math.random() * 3) + 1;
+        let computerAnswer = "";
+        if(computerRandom === 1) computerAnswer = "rock"
+        else if(computerRandom === 2) computerAnswer = "paper"
+        else if(computerRandom === 3) computerAnswer = "scissor"
+
+        if((answer === "rock" && computerAnswer === "scissor") || 
+        (answer === "paper" && computerAnswer === "rock") ||
+        (answer === "scissor" && computerAnswer === "paper")
+        ){
+            score.win += 1;
+            who_Win = "You Win";
+        }
+        else if (answer === computerAnswer) score.tie += 1;
+        else {
+            score.loss += 1;
+            who_Win = "You Loss";
+        }
+
+        localStorage.setItem("savedScore", JSON.stringify(score));
+
+        document.getElementsByClassName("whoWin")[0].innerHTML = `<h2>${who_Win}</h2>`
+        document.getElementsByClassName("user_computer_answer-container")[0].innerHTML = `<p>User: </p>
+        <img src="/javascript_tutorial/leeson8_objects/${answer}.png" alt="${answer}">
+        <p>Computer: </p>
+        <img src="/javascript_tutorial/leeson8_objects/${computerAnswer}.png" alt="${computerAnswer}">`;
+        document.getElementsByClassName("score-container")[0].innerHTML = `<h2>Score:</h2>
+        <p>Wins: ${score.win} | Loss: ${score.loss} | Tie: ${score.tie}</p>`;
+    } 
+
+    function reset(){
+        score.win = 0;
+        score.loss = 0;
+        score.tie = 0;
+
+        document.getElementsByClassName("user_computer_answer-container")[0].innerHTML = ``;
+        document.getElementsByClassName("score-container")[0].innerHTML = `<h2>Score:</h2>
+        <p>Wins: ${score.win} | Loss: ${score.loss} | Tie: ${score.tie}</p>`;
+    }
+</script>
+</body>
+</html>

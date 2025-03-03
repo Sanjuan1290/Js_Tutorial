@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array and Loops</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        *{
+            font-family: montserrat;
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            margin: 20px;
+        }
+
+        .practice1-input, .practice2-input{
+            padding: 2px 5px;
+        }
+
+        .container{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 5px;
+            align-items: center;
+        }
+        .container input{
+            padding: 10px 5px;
+            font-size: 12px;
+            border: 1px solid black;
+            height: 20px;
+        }
+        .AddBtn, .deleteBtn{
+            background-color: rgb(1,129,1);
+            color: white;
+            padding: 13.5px 40px;
+            border: none;
+            font-size: 12px;
+        }
+        .deleteBtn{
+            background-color: rgb(197, 6, 6);
+        }
+    </style>
+</head>
+<body>
+
+    <div>
+        <p>Todo List Practice 1</p>
+        <br>
+        <input class="practice1-input" type="text" placeholder="Todo name">
+        <button onclick="practice1Btn()" class="practice1-input">Add</button>
+
+        <p>Todo List Practice 2</p>
+        <br>
+        <input class="practice2-input" type="text" placeholder="Todo name">
+        <button onclick="practice2Btn()" class="practice1-input">Add</button>
+        <div class="practice2_todoList"></div>
+    </div>
+
+    <br>
+    <br>
+    <p>Todo List</p>
+    <div class="container">
+        <input class="todoList" type="text" placeholder="Todo name">
+        <input class="todoDate_time" type="date">
+
+        <button onclick="addTodoList()" class="AddBtn">Add</button>
+
+    </div>
+
+
+    <script>
+        let list = []
+        function practice1Btn(){     
+            if(document.querySelector('.practice1-input').value !== ""){
+                list.push(document.querySelector('.practice1-input').value);
+                document.querySelector('.practice1-input').value = '';
+            }
+            console.log(list)
+
+            
+        }
+        function practice2Btn(){
+            const input = document.querySelector('.practice2-input');
+            
+            document.querySelector('.practice2_todoList').innerHTML += `<p>${input.value}</p>`;
+            input.value = "";
+        }
+
+        function addTodoList(){
+            const todoList_elem = document.querySelector('.todoList');
+            const todoDate_time_elem = document.querySelector('.todoDate_time');
+            const container_elem = document.querySelector('.container');
+            
+            console.log(todoDate_time_elem.value)
+            if((todoList_elem.value === "" || todoList_elem.value === null) || todoDate_time_elem.value === "" || todoDate_time_elem.value === null){
+                alert("Please add Name and Time");
+                return;
+            }else{
+                document.body.innerHTML += `
+                <div class="container listTodo">
+                    <p>${todoList_elem.value}</p>
+                    <p>${todoDate_time_elem.value}</p>
+                    <button class="deleteBtn">Delete</button>
+                </div>
+            `;
+
+            let deleteBtn_elem = document.querySelectorAll('.deleteBtn')
+            deleteBtn_elem.forEach(button =>{
+
+            button.addEventListener('click', () =>{
+                button.parentElement.remove();
+                })
+            })
+            }
+
+
+
+        }
+
+
+    </script>
+
+
+</body>
+</html>
