@@ -107,7 +107,7 @@
 
         function safeCompute(expression){
             try {
-                return new Function('return ' + expression)();
+                return new Function('return' + expression)();
             }catch {
                 return alert("Error Occur")
             }
