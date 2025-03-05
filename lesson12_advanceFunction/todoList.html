@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="todoListStyle.css">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: montserrat;
+        }
+        .container{
+            border: 3px solid black;
+            border-radius: 5px;
+            box-shadow: 15px 15px 0px rgba(0, 0, 0, .8);
+            height: 480px;
+            width: 450px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            margin: 20px auto;
+            transition: box-shadow .30s;
+            position: relative;
+        }
+        .container:hover{
+            box-shadow: 5px 5px 0px rgba(0, 0, 0, .8);
+        }
+
+        .list-container{
+            border: 1px solid black;
+            display: flex;
+            flex-direction: column;
+            width: 90%;
+            min-height: 100px;
+            max-height: 250px;
+            margin-top: 20px;
+            border-radius: 3px;
+            padding: 5px;
+            overflow: auto;
+        }
+
+        .list{
+            border-bottom: 1px solid black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        .todo-value, .date-value{
+            flex: 1;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 150px;
+        }
+        .delete-button{
+            padding: 8px 15px;
+            background-color: rgb(207, 32, 32);
+            border: none;
+            font-weight: bold;
+            color: rgb(255, 255, 255);
+            border-radius: 3px;
+            transition: background-color .15s;
+            margin-bottom: 3px;
+        }
+        .delete-button:hover{
+            cursor: pointer;
+            background-color: rgb(253, 40, 40);
+        }
+        .delete-button:active{
+            background-color: rgb(207, 32, 32);
+        }
+
+
+        .clear-button{
+            position: absolute;
+            bottom: 10px;
+            right: 20px;
+            padding: 8px 15px;
+            background-color: rgb(32, 88, 207);
+            border: none;
+            font-weight: bold;
+            color: rgb(255, 255, 255);
+            border-radius: 3px;
+            transition: background-color .15s;
+            margin-bottom: 3px;
+        }
+        .clear-button:hover{
+            cursor: pointer;
+            background-color: rgb(40, 108, 255);
+        }
+        .clear-button:active{
+            background-color: rgb(32, 88, 207);
+        }
+    </style>
+</head>
+<body>
+    
+    <main class="container">
+        <h3>TODO LIST</h3>
+
+        <div class="input-container">
+            <input type="text" class="input-todo">
+            <input type="date" class="input-date">
+            <button onclick="addList()" class="add-button">ADD</button>
+        </div>
+
+        <div class="list-container">
+        </div>
+        
+        <button onclick="clearList()" class="clear-button">CLEAR LIST</button>
+    </main>
+
+    <script>
+        const inputTodo_elem = document.querySelector('.input-todo')
+        const inputDate_elem = document.querySelector('.input-date')
+        const todoValue_elem = document.querySelector('.todo-value')
+        const dateValue_elem = document.querySelector('.date-value')
+
+        const listContainer_elem = document.querySelector('.list-container')
+        
+        let list_of_todo = []
+
+        function addList(){
+            listContainer_elem.innerHTML = ""
+
+            list_of_todo.push(
+            `
+                <div class="list">
+                    <p class="todo-value">${inputTodo_elem.value}</p>
+                    <p class="date-value">${inputDate_elem.value}</p>
+                    <button class="delete-button">DELETE</button>
+                </div>
+            ` )
+
+            list_of_todo.forEach((todo) => {
+                console.log(todo);
+                listContainer_elem.innerHTML += todo
+            })
+            
+
+            let deleteButton_elems = document.querySelectorAll('.delete-button')
+            deleteButton_elems.forEach((button, index) => {
+                button.addEventListener('click', () =>{
+                    console.log(index);
+                    list_of_todo[index].remove
+                    button.parentElement.remove();
+                })
+            })
+        }
+
+        function clearList(){
+            console.log(list_of_todo);
+            list_of_todo = []
+            listContainer_elem.innerHTML = ""
+        }
+    </script>
+</body>
+</html>

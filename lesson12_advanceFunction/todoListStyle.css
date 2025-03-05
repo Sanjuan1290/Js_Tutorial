@@ -1,0 +1,26 @@
+.input-container{
+    display: flex;
+    gap: 5px;
+    margin-top: 50px;
+}
+.input-todo, .input-date{
+    min-width: 150px;
+    height: 35px;
+    padding: 0px 5px;
+}
+.add-button{
+    padding: 0px 15px;
+    background-color: rgb(154, 228, 43);
+    border: none;
+    font-weight: bold;
+    color: rgb(23, 63, 99);
+    border-radius: 3px;
+    transition: background-color .15s;
+}
+.add-button:hover{
+    cursor: pointer;
+    background-color: rgb(169, 250, 48);
+}
+.add-button:active{
+    background-color: rgb(154, 228, 43);
+}
