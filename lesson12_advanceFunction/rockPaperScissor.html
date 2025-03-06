@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rock paper scissor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            font-family: "montserrat";
+            color: white;
+        }
+        body{
+            background-color: black;
+        }
+        .container{
+            width: fit-content;
+            height: fit-content;
+            margin: 20px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .inputImage{
+            width: 100px;
+            background-color: white;
+            border-radius: 100%;
+            padding: 8px;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+        .score-container{
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .score-container p:nth-child(1){
+            font-size: 25px;
+            font-weight: bold;
+        }
+        .resetBtn, .autoPlayBtn{
+            width: 100px;
+            padding: 5px 0px;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            transition: padding .15s, box-shadow .30s;
+        }
+        .resetBtn:hover, .autoPlayBtn:hover{
+            cursor: pointer;
+        }
+        .resetBtn:active, .autoPlayBtn:active{
+            box-shadow: inset 110px 0px 20px rgba(0, 0, 0, .6);
+        }
+
+        .resultInput-container{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .resultInput-container img{
+            width: 50px;
+            background-color: white;
+            border-radius: 100%;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+
+        <h1>Rock - Paper - Scissor</h1>
+        <div class="inputImage-container">
+            <img onclick="userInput(`rock`)" class="inputImage" src="rock.png" alt="rock">
+            <img onclick="userInput(`paper`)" class="inputImage" src="paper.png" alt="paper">
+            <img onclick="userInput(`scissor`)" class="inputImage" src="scissor.png" alt="scissor">
+        </div>
+
+        <div class="result-container">
+        </div>
+
+        <div class="score-container">
+            <p>Score:</p>
+            <p>Wins: 0 | Loss: 0 | Tie: 0</p>
+            <div>
+                <button onclick="reset()" class="resetBtn">reset</button>
+                <button onclick="autoPlay()" class="autoPlayBtn">autoPlay</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let compInput = ""
+        let whoWin = ""
+        let auto = false
+        let score = JSON.parse(localStorage.getItem("getScore"))
+        if(!score){
+            score = {
+                wins: 0,
+                loss: 0,
+                tie: 0
+            }
+        }
+
+        function userInput(input){
+            compInput = computerInput();
+ 
+            if((input === "rock" && compInput === "scissor") || 
+            (input === "paper" && compInput === "rock") ||
+            (input === "scissor" && compInput === "paper")){
+                score.wins++
+                whoWin = "You Win"
+            }else if(input === compInput){
+                score.tie++
+                whoWin = "Tie"
+            }else{
+                score.loss++
+                whoWin = "You Loss"
+            }
+
+            localStorage.setItem("getScore", JSON.stringify(score))
+            document.querySelector('.result-container').innerHTML = 
+            `
+                <h2>${whoWin}</h2>
+                <div class="resultInput-container">
+                    <p>User: </p>
+                    <img src="${input}.png" alt="${input}">
+                    <p>Computer: </p>
+                    <img src="${compInput}.png" alt="${compInput}">
+                </div>
+            `
+            updateScore();
+
+        }
+        function computerInput(){
+            let random = Math.floor(Math.random() * 3) + 1
+
+            if(random === 1) return "rock"
+            else if(random === 2) return 'paper'
+            else if(random === 3) return 'scissor'
+        }
+
+        function updateScore(){
+            document.querySelector('.score-container').innerHTML = 
+            `
+                <p>Score:</p>
+                <p>Wins: ${score.wins} | Loss: ${score.loss} | Tie: ${score.tie}</p>
+                <div>
+                    <button onclick="reset()" class="resetBtn">reset</button>
+                    <button onclick="autoPlay()" class="autoPlayBtn">autoPlay</button>
+                </div>
+            `
+        }
+
+
+        function reset(){
+            localStorage.removeItem('getScore')
+            score.wins = 0
+            score.loss = 0
+            score.tie = 0
+            updateScore()
+        }
+        
+        let automation
+        function autoPlay(){
+            if(!auto){
+                auto = true
+                automation = setInterval(() => {
+                                    userInput(computerInput())
+                                }, 1000)
+            }else {
+                auto = false
+                clearInterval(automation)
+            }
+        }
+
+    
+    </script>
+</body>
+</html>
