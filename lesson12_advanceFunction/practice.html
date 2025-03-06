@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>practice</title>
+</head>
+<body>
+    
+    <script>
+        
+        function addNum(array, num){
+
+            return array.map(value =>{
+                return value + num
+            })
+        }
+
+        console.log(addNum([1,2,3], 2));
+        console.log(addNum([-2,-1,0,99], 2));
+
+
+        let foods = ['egg', 'apple', 'egg', 'egg', 'ham']
+
+
+        let numberOfEgg = 0
+        let filteredFood = foods.filter(value => {
+            
+            if(value !== 'egg'){
+                return true
+            }else if(numberOfEgg >= 2){
+                return true
+            }else{
+                numberOfEgg++
+                return false
+            }
+            
+
+        })
+        console.log(filteredFood);
+        console.log(numberOfEgg);
+    </script>
+</body>
+</html>

@@ -25,6 +25,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            position: relative;
         }
         .inputImage{
             width: 100px;
@@ -69,6 +70,29 @@
             background-color: white;
             border-radius: 100%;
         }
+
+        .reset-confimation-message{
+            background-color: rgba(128, 128, 128, .3);
+            padding: 4px 10px;
+            display: flex;
+            position: absolute;
+            bottom: -60px;
+        }
+        .reset-confimation-message button{
+            padding: 10px 12px;
+            color: black;
+            font-size: 15px;
+            font-weight: bold;
+            border: none;
+            margin-left: 5px;
+        }
+        .reset-confimation-message button:hover{
+            cursor: pointer;
+            opacity: .8;
+        }
+        .reset-confimation-message button:active{
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -90,14 +114,23 @@
             <p>Wins: 0 | Loss: 0 | Tie: 0</p>
             <div>
                 <button onclick="reset()" class="resetBtn">reset</button>
-                <button onclick="autoPlay()" class="autoPlayBtn">autoPlay</button>
+                <button class="autoPlayBtn">autoPlay</button>
             </div>
+        </div>
+
+        <div class="reset-confimation-message" style="display: none;">
+            <span>Are you sure you want to reset the score?</span>
+            <button class="resetScore_Yes_Btn">Yes</button>
+            <button class="resetScore_No_Btn">No</button>
         </div>
     </div>
 
     <script>
         let compInput = ""
         let whoWin = ""
+
+        let autoText = 'Auto Play'
+        let yesOrNo = ''
         let auto = false
         let score = JSON.parse(localStorage.getItem("getScore"))
         if(!score){
@@ -107,6 +140,29 @@
                 tie: 0
             }
         }
+
+        document.querySelector('.autoPlayBtn').addEventListener("click", autoPlay)
+        document.querySelector('.resetScore_Yes_Btn').addEventListener("click", ()=> {
+            yesOrNo = 'Yes'
+            reset()
+            document.querySelector('.reset-confimation-message').style.display = 'none'
+        })
+        document.querySelector('.resetScore_No_Btn').addEventListener("click", ()=> {
+            yesOrNo = "No"
+            document.querySelector('.reset-confimation-message').style.display = 'none'
+        }) 
+
+
+        document.addEventListener('keydown', event =>{
+            console.log(event.key);
+            if(event.key === 'a'){
+                autoPlay()
+            }
+            if(event.key === ' '){
+                document.querySelector('.reset-confimation-message').style.display = 'flex'
+            }
+        })
+
 
         function userInput(input){
             compInput = computerInput();
@@ -136,8 +192,9 @@
                 </div>
             `
             updateScore();
-
         }
+
+
         function computerInput(){
             let random = Math.floor(Math.random() * 3) + 1
 
@@ -153,7 +210,7 @@
                 <p>Wins: ${score.wins} | Loss: ${score.loss} | Tie: ${score.tie}</p>
                 <div>
                     <button onclick="reset()" class="resetBtn">reset</button>
-                    <button onclick="autoPlay()" class="autoPlayBtn">autoPlay</button>
+                    <button onclick="autoPlay()" class="autoPlayBtn">${autoText}</button>
                 </div>
             `
         }
@@ -168,19 +225,24 @@
         }
         
         let automation
+        
         function autoPlay(){
             if(!auto){
                 auto = true
                 automation = setInterval(() => {
                                     userInput(computerInput())
                                 }, 1000)
+                autoText = 'Stop Playing'
+                document.querySelector('.autoPlayBtn').textContent = autoText
             }else {
                 auto = false
                 clearInterval(automation)
+                autoText = 'Auto Play'
+                document.querySelector('.autoPlayBtn').textContent = autoText
             }
         }
 
-    
+
     </script>
 </body>
 </html>
