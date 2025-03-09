@@ -1,4 +1,5 @@
-import {cart} from '../data/cart.js';
+// import * as cartModule from '../data/cart.js'; // could import all then name it
+import { cart, addToCart } from '../data/cart.js';
 import { products } from '../data/products.js';
 
 
@@ -64,36 +65,29 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) =>{
         const productId = button.dataset.productId;
         const quantity = Number(document.querySelector(`.js-quantity-selector-${productId}`).value)
 
-        let matchingItem;
-        cart.forEach(item => {
-          if(productId === item.productId){
-            matchingItem = item
-          }
-        });
+        addToCart(productId, quantity);
+        updateCartQuantity();
+        showAddedIcon(productId);
 
-        if(matchingItem){
-          matchingItem.quantity += quantity;
-        }else{
-          cart.push({
-            productId,
-            quantity
-          })
-        }
-
-        let cartQuantity = 0
-        cart.forEach(item => {
-          cartQuantity += item.quantity
-        })
-        document.querySelector('.js-cart-quantity').innerHTML = cartQuantity
-
-        let showAddedToCart = document.querySelector(`.js-added-to-cart-${productId}`)
-
-        timeouts[productId] && clearTimeout(timeouts[productId])
-
-        timeouts[productId] = setTimeout(()=>{
-          showAddedToCart.classList.remove('show-added')
-        }, 2000)
-
-        showAddedToCart.classList.add('show-added')
     })
 })
+
+
+function updateCartQuantity(){
+    let cartQuantity = 0
+    cart.forEach(item => {
+      cartQuantity += item.quantity
+    })
+    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity
+}
+function showAddedIcon(productId){
+    let showAddedToCart = document.querySelector(`.js-added-to-cart-${productId}`)
+
+    timeouts[productId] && clearTimeout(timeouts[productId])
+
+    timeouts[productId] = setTimeout(()=>{
+      showAddedToCart.classList.remove('show-added')
+    }, 2000)
+
+    showAddedToCart.classList.add('show-added')
+}
