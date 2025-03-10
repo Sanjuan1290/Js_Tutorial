@@ -145,6 +145,7 @@
     transform: translateY(-100%);
     opacity: 0;
     transition: transform .15s ease-in, opacity .15s ease-in;
+    z-index: 1;
 }
 .header-burgerMenu-transition{
     opacity: 1;
