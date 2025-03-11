@@ -40,6 +40,11 @@ products.forEach((product) =>{
 
               <div class="product-addtocart-button">
                 <button class="addToCart-button js-addToCart-button-${product.id}" data-product-id="${product.id}">Add to cart</button>
+                    <div class="added-Notif-${product.id} " style="display:none;">
+                        <div>&#x2714;</div>
+                        <p>Added</p>
+                    </div>
+
               </div>
         </div>
     `;
@@ -57,9 +62,27 @@ document.querySelectorAll(`.addToCart-button`).forEach(button => {
 
         addToCart(productId, quantity)
         updateCartQuantity(quantity)
+
+        showAddedMessage(productId);
     })
 
 
+    function showAddedMessage(productId){
+
+        document.querySelector(`.added-Notif-${productId}`).style.cssText = `
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        position: absolute;
+        color: green;
+        top: 10px;
+    `;
+
+        setTimeout(()=>{
+        document.querySelector(`.added-Notif-${productId}`).style.display = 'none'
+        }, 1000)
+
+    }
 })
 
 
