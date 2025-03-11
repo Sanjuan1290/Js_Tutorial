@@ -98,8 +98,10 @@
 .cart-quantity{
     color: rgb(234, 148, 44);
     position: absolute;
-    top: 8px;
-    left: 32px;
+    top: 5px;
+    left: 0;
+    right: 16px;
+    text-align: center;
     font-size: 14px;
 }
 

@@ -1,4 +1,5 @@
 import { products } from "../data/products.js";
+import { cart, addToCart, updateCartQuantity} from "../data/cart.js";
 
 
 products.forEach((product) =>{
@@ -23,7 +24,7 @@ products.forEach((product) =>{
             </div>
 
             <div class="product-quantity-container">
-                <select>
+                <select class="product-quantity-value-${product.id}">
                   <option selected value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -38,9 +39,27 @@ products.forEach((product) =>{
               </div>
 
               <div class="product-addtocart-button">
-                <button>Add to cart</button>
+                <button class="addToCart-button js-addToCart-button-${product.id}" data-product-id="${product.id}">Add to cart</button>
               </div>
         </div>
+    `;
 
-    `
+
+
 })
+
+
+document.querySelectorAll(`.addToCart-button`).forEach(button => {
+
+    button.addEventListener('click', ()=>{
+        const productId = button.dataset.productId;
+        const quantity = Number(document.querySelector(`.product-quantity-value-${productId}`).value)
+
+        addToCart(productId, quantity)
+        updateCartQuantity(quantity)
+    })
+
+
+})
+
+
