@@ -16,15 +16,16 @@ export function addToCart(productId, quantity){
 
 
 
-
+let totalQuantity = 0
 export function updateCartQuantity(quantity){
 
-
-    const cartQuantity_elem = document.querySelector('.js-cart-quantity')
-
-    let totalQuantity = Number(cartQuantity_elem.innerHTML)
+    const cartQuantity_elem = document.querySelectorAll('.js-cart-quantity')
 
     totalQuantity += quantity
+    
+    cartQuantity_elem.forEach(item =>{
+        item.innerHTML = totalQuantity
+    })
 
-    cartQuantity_elem.innerHTML = totalQuantity
+
 }
