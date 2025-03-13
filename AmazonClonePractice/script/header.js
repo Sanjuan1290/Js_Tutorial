@@ -22,10 +22,13 @@ function changeToBurgerMenu(){
             <p>& Orders</p>
         </div>
 
+
         <div class="cart-container">
-            <img class="cartIcon" src="amazon-Image/headerImages/cart-image/cart.png" alt="cartIcon">
-            <p>Cart</p>
-            <p class="cart-quantity js-cart-quantity">0</p>
+            <a href="checklist.html" class="cart-link">
+                <img class="cartIcon" src="amazon-Image/headerImages/cart-image/cart.png" alt="cartIcon">
+                <p>Cart</p>
+                <p class="cart-quantity js-cart-quantity">0</p>
+            </a>
         </div>
         `;
 
