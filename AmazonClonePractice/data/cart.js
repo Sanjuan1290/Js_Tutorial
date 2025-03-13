@@ -45,7 +45,8 @@ export function updateCartQuantity(){
         item.innerHTML = totalQuantity
     })
 
-    
+
+    localStorage.setItem('cartItems', JSON.stringify(cart))
 }
 
 

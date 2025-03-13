@@ -1,15 +1,14 @@
-import { cart } from "../data/cart.js";
+import { cart, updateCartQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
 
-
-
-
+updateCartQuantity();
+updateTotalCheckOutQuantity();
 const added_product_checkList = document.querySelector('.added-products-container')
 
 added_product_checkList.innerHTML = ``;
 
-cart.forEach(item =>{
 
+cart.forEach(item =>{
     products.forEach(product=>{
 
         if(item.productId === product.id){
@@ -27,7 +26,7 @@ cart.forEach(item =>{
     
                             <div class="item-details">
                                 <p class="item-name">Black and Gray Athletic Cotton Socks - 6 pairs</p>
-                                <p class="item-price"> $${((product.priceCents / 100) * item.quantity).toFixed(2)}</p>
+                                <p class="item-price item-price-${item.productId}"> $${((product.priceCents / 100) * item.quantity).toFixed(2)}</p>
                                 <div class="item-details-quantity-container">
 
                                     <p class="item-quantity-${item.productId}">Quantity: ${item.quantity}</p> 
@@ -78,6 +77,8 @@ cart.forEach(item =>{
     })
 });
 
+
+
 cart.forEach(item =>{
     
     document.querySelector(`.update-quantity-${item.productId}`).addEventListener('click', () =>{
@@ -105,14 +106,35 @@ function updateQuantity(productId){
     }
 
 
+    cart.forEach((item)=>{
+        if(productId === item.productId){
+            item.quantity = Number(document.querySelector(`.input-quantity-${productId}`).value)
+
+            updateCartQuantity();
+            updateTotalCheckOutQuantity();
+            products.forEach(product =>{
+                if(product.id === item.productId){
+                    document.querySelector(`.item-price-${productId}`).innerHTML = `$${((product.priceCents / 100) * item.quantity).toFixed(2)}`
+                }
+            })
+        }
+    })
 
     
-    
+
+
 }
 
 function deleteQuantity(productId){
-    console.log("d" + productId);
+    console.log(cart);
+
 }
 
-
+function updateTotalCheckOutQuantity(){
+    let totalQuantity = 0
+    cart.forEach(item =>{
+        totalQuantity += item.quantity
+    })
+    document.querySelector(`.number-of-items-in-cart`).innerHTML = `${totalQuantity} items`
+}
 
