@@ -161,11 +161,15 @@
     opacity: 1;
     transform: translateY(0);
 }
+.cart-link{
+    width: 100%;
+}
 .return-orders, .cart{
     padding: 10px;
     width: 100%;
     text-align: center;
 }
+
 .return-orders:hover, .cart:hover{
     cursor: pointer;
     background-color: rgba(53, 68, 84, 0.4);

@@ -48,7 +48,7 @@ function showBurgerMenu(){
     }else{
             burgerMenu.innerHTML = `
             <div class="return-orders">Returns & Orders</div>
-            <div class="cart">Cart (<p class="js-cart-quantity" style="color: rgb(234, 148, 44); display: inline-block;">0</p>)</div>
+            <a class="cart-link" href="checklist.html"><div class="cart">Cart (<p class="js-cart-quantity" style="color: rgb(234, 148, 44); display: inline-block;">0</p>)</div></a>
             `;
 
             burgerMenu.classList.add('header-burgerMenu-transition')

@@ -31,6 +31,7 @@ header{
 .logo-container{
     width: 150px;
     justify-content: start;
+    margin-top: 10px;
 }
 .checkout-items-container{
     width: 800px;
@@ -316,5 +317,16 @@ main{
         margin-left: 0;
         width: 460px;
         order: 1;
+    }
+    header{
+        font-size: 20px;
+    }
+}
+
+@media(max-width: 570px){
+    .logo-container img{
+        content: url('../images/amazon-mobile-logo.png');
+        width: 35px;
+        margin-top: 5px;
     }
 }
