@@ -1,4 +1,7 @@
-export const cart = [{
+
+export let cart = JSON.parse(localStorage.getItem('cartItems'))
+
+cart ||= [{
     productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
     quantity: 1
 }, {
@@ -9,23 +12,40 @@ export const cart = [{
 
 
 export function addToCart(productId, quantity){
-    cart.push({productId, quantity})
-    // console.log(cart);
-    // to be continue
+
+    let checkItem;
+
+    cart.forEach(item =>{
+        if(item.productId === productId){
+            item.quantity += quantity
+            checkItem = true;
+        }
+    })
+
+    if(!checkItem){
+        cart.push({productId, quantity})
+    }
+
+    localStorage.setItem('cartItems', JSON.stringify(cart))
 }
 
 
 
-let totalQuantity = 0
-export function updateCartQuantity(quantity){
+
+export function updateCartQuantity(){
 
     const cartQuantity_elem = document.querySelectorAll('.js-cart-quantity')
 
-    totalQuantity += quantity
+    let totalQuantity = 0
+    cart.forEach(item =>{
+        totalQuantity += item.quantity
+    })
     
     cartQuantity_elem.forEach(item =>{
         item.innerHTML = totalQuantity
     })
 
-
+    
 }
+
+

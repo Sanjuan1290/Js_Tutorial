@@ -1,6 +1,7 @@
 import { products } from "../data/products.js";
 import { cart, addToCart, updateCartQuantity} from "../data/cart.js";
 
+updateCartQuantity()
 
 products.forEach((product) =>{
     document.querySelector('.main-container').innerHTML +=
@@ -61,7 +62,7 @@ document.querySelectorAll(`.addToCart-button`).forEach(button => {
         const quantity = Number(document.querySelector(`.product-quantity-value-${productId}`).value)
 
         addToCart(productId, quantity)
-        updateCartQuantity(quantity)
+        updateCartQuantity()
 
         showAddedMessage(productId);
     })
