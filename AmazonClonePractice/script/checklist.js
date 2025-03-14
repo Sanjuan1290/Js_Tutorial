@@ -1,4 +1,4 @@
-import { cart, updateCartQuantity } from "../data/cart.js";
+import { cart, updateCartQuantity, deleteQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
 
 updateCartQuantity();
@@ -15,7 +15,7 @@ cart.forEach(item =>{
 
             added_product_checkList.innerHTML += 
             `
-                <div class="product-container">
+                <div class="product-container product-container-${product.id}">
                     <div class="delivery-date">
                         <p>Delivery date: Friday, March 21</p>
                     </div>
@@ -45,7 +45,7 @@ cart.forEach(item =>{
                             </div>
     
                             <div class="options">
-                                <input type="radio" name="productId-1">
+                                <input type="radio" name="productId-${product.id}" value="0">
                                 <div>
                                     <p class="option-date">Friday, March 24</p>
                                     <p class="option-delivery-price">FREE Shipping</p>
@@ -53,7 +53,7 @@ cart.forEach(item =>{
                             </div>
     
                             <div class="options">
-                                <input type="radio" name="productId-1">
+                                <input type="radio" name="productId-${product.id}" value="4.99">
                                 <div>
                                     <p class="option-date">Monday, March 18</p>
                                     <p class="option-delivery-price">$4.99 - Shipping</p>
@@ -61,7 +61,7 @@ cart.forEach(item =>{
                             </div>
     
                             <div class="options">
-                                <input type="radio" name="productId-1">
+                                <input type="radio" name="productId-${product.id}" value="9.99">
                                 <div>
                                     <p class="option-date">Thursday, March 14</p>
                                     <p class="option-delivery-price">$9.99 - Shipping</p>
@@ -86,8 +86,8 @@ cart.forEach(item =>{
     })
     document.querySelector(`.delete-product-${item.productId}`).addEventListener('click', () =>{
         deleteQuantity(item.productId)
+        updateTotalCheckOutQuantity()
     })
-  
 })
 
 function updateQuantity(productId){
@@ -124,12 +124,6 @@ function updateQuantity(productId){
 
 
 }
-
-function deleteQuantity(productId){
-    console.log(cart);
-
-}
-
 function updateTotalCheckOutQuantity(){
     let totalQuantity = 0
     cart.forEach(item =>{

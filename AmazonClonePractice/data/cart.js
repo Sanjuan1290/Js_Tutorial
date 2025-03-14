@@ -50,3 +50,18 @@ export function updateCartQuantity(){
 }
 
 
+
+export function deleteQuantity(productId){
+
+    console.log(cart);
+    cart = cart.filter(item => {
+        return item.productId !== productId
+    })
+
+    document.querySelector(`.product-container-${productId}`).remove()
+
+    console.log(cart);
+
+    updateCartQuantity()
+}
+
