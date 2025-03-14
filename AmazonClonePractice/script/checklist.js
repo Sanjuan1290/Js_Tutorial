@@ -14,6 +14,7 @@ let orderTotal = 0;
 
 updateCartQuantity();
 updateTotalCheckOutQuantity();
+calculateOrderSummary();
 updateOrderSummary();
 
 const added_product_checkList = document.querySelector('.added-products-container')
@@ -95,17 +96,20 @@ cart.forEach(item =>{
 
     document.querySelector(`.update-quantity-${item.productId}`).addEventListener('click', () =>{
         updateQuantity(item.productId)
+        calculateOrderSummary()
         updateOrderSummary()
     })
     document.querySelector(`.delete-product-${item.productId}`).addEventListener('click', () =>{
         deleteQuantity(item.productId)
         updateTotalCheckOutQuantity()
+        calculateOrderSummary()
         updateOrderSummary()
     })
 
     document.querySelectorAll(`input[name="productId-${item.productId}"]`).forEach(radio=>{
         radio.addEventListener('click', ()=>{
             if(radio.checked){
+                calculateOrderSummary()
             }
         })
     })
@@ -141,12 +145,41 @@ function updateQuantity(productId){
         }
     })
 }
+
 function updateTotalCheckOutQuantity(){
     let totalQuantity = 0
     cart.forEach(item =>{
         totalQuantity += item.quantity
     })
     document.querySelector(`.number-of-items-in-cart`).innerHTML = `${totalQuantity} items`
+}
+
+function calculateOrderSummary(){
+
+    totalShippingCost = 0;
+    document.querySelectorAll(`.deliveryOptions`).forEach(radio => {
+        if(radio.checked){
+            totalShippingCost +=  Number(radio.value)
+        }
+    })
+
+    totalItem = 0;
+    totalItemPrice = 0;
+    
+    cart.forEach(item => {
+        products.forEach(product => {
+            if(item.productId === product.id){
+                totalItem += item.quantity;
+                totalItemPrice +=  Number(((product.priceCents / 100) * item.quantity).toFixed(2));
+            }
+        }) 
+    })
+
+    totalBeforeTax = Number((totalItemPrice + totalShippingCost).toFixed(2));
+    taxValue = Number((totalBeforeTax * tax).toFixed(2));
+    orderTotal = Number((totalBeforeTax + taxValue).toFixed(2));
+
+    updateOrderSummary();
 }
 
 function updateOrderSummary(){
