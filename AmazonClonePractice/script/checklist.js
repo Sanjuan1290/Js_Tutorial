@@ -1,19 +1,31 @@
 import { cart, updateCartQuantity, deleteQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
 
+let totalShippingCost = 0;
+
+let totalItem = 0;
+let totalItemPrice = 0;
+
+let totalBeforeTax = 0;
+let tax = .10;
+let taxValue = 0;
+let orderTotal = 0;
+
+
 updateCartQuantity();
 updateTotalCheckOutQuantity();
+updateOrderSummary();
+
 const added_product_checkList = document.querySelector('.added-products-container')
 
 added_product_checkList.innerHTML = ``;
-
 
 cart.forEach(item =>{
     products.forEach(product=>{
 
         if(item.productId === product.id){
 
-            added_product_checkList.innerHTML += 
+            added_product_checkList.innerHTML +=
             `
                 <div class="product-container product-container-${product.id}">
                     <div class="delivery-date">
@@ -45,7 +57,7 @@ cart.forEach(item =>{
                             </div>
     
                             <div class="options">
-                                <input type="radio" name="productId-${product.id}" value="0">
+                                <input type="radio" class="deliveryOptions" name="productId-${product.id}" value="0">
                                 <div>
                                     <p class="option-date">Friday, March 24</p>
                                     <p class="option-delivery-price">FREE Shipping</p>
@@ -53,7 +65,7 @@ cart.forEach(item =>{
                             </div>
     
                             <div class="options">
-                                <input type="radio" name="productId-${product.id}" value="4.99">
+                                <input type="radio" class="deliveryOptions" name="productId-${product.id}" value="4.99">
                                 <div>
                                     <p class="option-date">Monday, March 18</p>
                                     <p class="option-delivery-price">$4.99 - Shipping</p>
@@ -61,7 +73,7 @@ cart.forEach(item =>{
                             </div>
     
                             <div class="options">
-                                <input type="radio" name="productId-${product.id}" value="9.99">
+                                <input type="radio" class="deliveryOptions" name="productId-${product.id}" value="9.99">
                                 <div>
                                     <p class="option-date">Thursday, March 14</p>
                                     <p class="option-delivery-price">$9.99 - Shipping</p>
@@ -80,13 +92,22 @@ cart.forEach(item =>{
 
 
 cart.forEach(item =>{
-    
+
     document.querySelector(`.update-quantity-${item.productId}`).addEventListener('click', () =>{
         updateQuantity(item.productId)
+        updateOrderSummary()
     })
     document.querySelector(`.delete-product-${item.productId}`).addEventListener('click', () =>{
         deleteQuantity(item.productId)
         updateTotalCheckOutQuantity()
+        updateOrderSummary()
+    })
+
+    document.querySelectorAll(`input[name="productId-${item.productId}"]`).forEach(radio=>{
+        radio.addEventListener('click', ()=>{
+            if(radio.checked){
+            }
+        })
     })
 })
 
@@ -119,10 +140,6 @@ function updateQuantity(productId){
             })
         }
     })
-
-    
-
-
 }
 function updateTotalCheckOutQuantity(){
     let totalQuantity = 0
@@ -130,5 +147,40 @@ function updateTotalCheckOutQuantity(){
         totalQuantity += item.quantity
     })
     document.querySelector(`.number-of-items-in-cart`).innerHTML = `${totalQuantity} items`
+}
+
+function updateOrderSummary(){
+    document.querySelector('.order-summary-container').innerHTML = 
+    `
+        <p class="OrderSummary">Order Summary</p>
+        <div class="summary-price-container">
+            <div class="summary-text">
+                <p>Items (${totalItem}):</p>
+                <p>Shippping & handling:</p>
+                <p>Total before tax:</p>
+                <p>Estimated tax (${tax * 100}%):</p>
+            </div>
+
+            <div class="summary-price">
+                <p>$${totalItemPrice}</p>
+                <p>$${totalShippingCost.toFixed(2)}</p>
+                <p>$${totalBeforeTax}</p>
+                <p>$${taxValue}</p>
+            </div>
+
+            <div class="summary-price-line1"></div>
+            <div class="summary-price-line2"></div>
+        </div>
+        
+
+        <div class="orderTotal-container">
+            <p class="orderTotal">Order total: </p>
+            <p class="orderTotal-price">$${orderTotal}</p>
+        </div>
+
+        <div class="order-button">
+            <button>Place your order</button>
+        </div>
+    `;
 }
 

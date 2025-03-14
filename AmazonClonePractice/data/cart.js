@@ -60,8 +60,6 @@ export function deleteQuantity(productId){
 
     document.querySelector(`.product-container-${productId}`).remove()
 
-    console.log(cart);
-
     updateCartQuantity()
 }
 
