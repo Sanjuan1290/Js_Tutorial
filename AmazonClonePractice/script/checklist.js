@@ -1,6 +1,9 @@
 import { cart, updateCartQuantity, deleteQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
 
+
+
+
 let totalShippingCost = 0;
 
 let totalItem = 0;
@@ -11,11 +14,23 @@ let tax = .10;
 let taxValue = 0;
 let orderTotal = 0;
 
+document.addEventListener('DOMContentLoaded', ()=> {
+    document.querySelectorAll('.deliveryOptions').forEach(radio => {
+        let savedValue = localStorage.getItem(radio.name);
 
-updateCartQuantity();
-updateTotalCheckOutQuantity();
-calculateOrderSummary();
-updateOrderSummary();
+        if(savedValue && radio.value === savedValue){
+            console.log("item reload");
+            radio.checked = true;
+        }
+    })
+
+    updateCartQuantity();
+    updateTotalCheckOutQuantity();
+    calculateOrderSummary();
+    updateOrderSummary();
+})
+
+
 
 const added_product_checkList = document.querySelector('.added-products-container')
 
@@ -109,6 +124,8 @@ cart.forEach(item =>{
     document.querySelectorAll(`input[name="productId-${item.productId}"]`).forEach(radio=>{
         radio.addEventListener('click', ()=>{
             if(radio.checked){
+                localStorage.setItem(radio.name, radio.value)
+                console.log("item saved");
                 calculateOrderSummary()
             }
         })
