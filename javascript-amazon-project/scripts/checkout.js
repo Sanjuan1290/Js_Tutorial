@@ -106,5 +106,22 @@ document.querySelectorAll('.js-delete-link')
             const container = document.querySelector(`.js-cart-item-container-${productId}`)
 
             container.remove()
+
+            updateCheckOutQuantity()
+            
         })
     })
+
+   
+
+document.addEventListener('DOMContentLoaded', () => {
+    updateCheckOutQuantity()
+})
+
+function updateCheckOutQuantity(){
+    let cartQuantity = 0
+    cart.forEach(item => {
+        cartQuantity += item.quantity
+    })
+    document.querySelector('.return-to-home-link').innerHTML = `${cartQuantity} items`
+}

@@ -80,6 +80,7 @@ function updateCartQuantity(){
     })
     document.querySelector('.js-cart-quantity').innerHTML = cartQuantity
 }
+
 function showAddedIcon(productId){
     let showAddedToCart = document.querySelector(`.js-added-to-cart-${productId}`)
 
