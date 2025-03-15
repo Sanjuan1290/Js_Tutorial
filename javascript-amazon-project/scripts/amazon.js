@@ -92,3 +92,7 @@ function showAddedIcon(productId){
 
     showAddedToCart.classList.add('show-added')
 }
+
+document.addEventListener("DOMContentLoaded", ()=>{
+  updateCartQuantity()
+})
