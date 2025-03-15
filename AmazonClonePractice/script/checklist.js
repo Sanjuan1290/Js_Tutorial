@@ -187,14 +187,14 @@ function calculateOrderSummary(){
         products.forEach(product => {
             if(item.productId === product.id){
                 totalItem += item.quantity;
-                totalItemPrice +=  Number(((product.priceCents / 100) * item.quantity).toFixed(2));
+                totalItemPrice +=  Number(((product.priceCents / 100) * item.quantity));
             }
         }) 
     })
 
-    totalBeforeTax = Number((totalItemPrice + totalShippingCost).toFixed(2));
-    taxValue = Number((totalBeforeTax * tax).toFixed(2));
-    orderTotal = Number((totalBeforeTax + taxValue).toFixed(2));
+    totalBeforeTax = Number((totalItemPrice + totalShippingCost));
+    taxValue = Number((totalBeforeTax * tax));
+    orderTotal = Number((totalBeforeTax + taxValue));
 
     updateOrderSummary();
 }
@@ -212,10 +212,10 @@ function updateOrderSummary(){
             </div>
 
             <div class="summary-price">
-                <p>$${totalItemPrice}</p>
+                <p>$${totalItemPrice.toFixed(2)}</p>
                 <p>$${totalShippingCost.toFixed(2)}</p>
-                <p>$${totalBeforeTax}</p>
-                <p>$${taxValue}</p>
+                <p>$${totalBeforeTax.toFixed(2)}</p>
+                <p>$${taxValue.toFixed(2)}</p>
             </div>
 
             <div class="summary-price-line1"></div>
@@ -225,7 +225,7 @@ function updateOrderSummary(){
 
         <div class="orderTotal-container">
             <p class="orderTotal">Order total: </p>
-            <p class="orderTotal-price">$${orderTotal}</p>
+            <p class="orderTotal-price">$${orderTotal.toFixed(2)}</p>
         </div>
 
         <div class="order-button">
