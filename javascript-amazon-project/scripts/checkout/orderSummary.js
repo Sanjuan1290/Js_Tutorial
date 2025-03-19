@@ -140,7 +140,7 @@ export function renderOrderSummary(){
             document.querySelector(`.js-update-link[data-product-id="${productId}"]`).style.display = 'initial'
 
             let newQuantityValue = Number(document.querySelector(`.quantity-input-${productId}`).value)
-            document.querySelector(`.quantity-label-${productId}`).innerHTML = newQuantityValue
+            document.querySelector(`.quantity-label-${productId}`).innerHTML = newQuantityValue          
             updateQuantity(productId, newQuantityValue)
             updateCheckOutQuantity()
             renderOrderSummary();
