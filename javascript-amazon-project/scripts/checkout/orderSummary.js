@@ -10,6 +10,11 @@ import { renderPaymentSummary } from './paymentSummary.js'
 export function renderOrderSummary(){
     let cartSummaryHTML = '';
 
+    document.querySelector(`.checkout-header-middle-section`).innerHTML = `
+        Checkout (<a class="return-to-home-link"
+        href="amazon.html">${calculateCartQuantity()} items</a>)
+    `
+
     cart.forEach((cartItem) =>{
         const productId = cartItem.productId;
         let matchingProduct = getProduct(productId);
