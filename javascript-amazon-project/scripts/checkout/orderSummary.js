@@ -1,10 +1,11 @@
 import { cart, removeFromCart, calculateCartQuantity, updateQuantity, updateDeliveryOption} from "../../data/cart.js";
-import { products, getProduct } from "../../data/products.js";
+import { products, getProduct, loadProducts } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";
-
 
 import {deliveryOptions, getDeliveryOption, isWeekEnd} from '../../data/deliveryOptions.js'
 import { renderPaymentSummary } from './paymentSummary.js'
+
+
 
 export function renderOrderSummary(){
     let cartSummaryHTML = '';
@@ -167,4 +168,3 @@ export function renderOrderSummary(){
     })
 }
 
-renderOrderSummary();
