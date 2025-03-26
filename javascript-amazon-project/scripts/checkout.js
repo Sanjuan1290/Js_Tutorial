@@ -6,7 +6,38 @@ import { loadCart } from '../data/cart.js'
 // import '../data/backend-practice.js';
 
 
+async function loadPage(){
 
+    // await loadProductsFetch(); // this is fetch so it is a promise
+
+    // const value = await new Promise(resolve => {
+    //     loadCart(() => {
+    //         resolve("aa")
+    //     })
+    // })
+
+    // console.log(value);
+    // renderOrderSummary()
+    // renderPaymentSummary()
+
+    const [_, cartValue] = await Promise.all([
+        loadProductsFetch(),
+
+        new Promise(resolve => {
+            loadCart(() => {
+                resolve("bna")
+            })
+        })
+    ])
+
+    console.log(cartValue);
+    renderOrderSummary()
+    renderPaymentSummary()
+
+}
+
+loadPage()
+/*
 Promise.all([
     loadProductsFetch(),
 
@@ -20,6 +51,7 @@ Promise.all([
     renderOrderSummary()
     renderPaymentSummary()
 })
+*/
 
 /*
 new Promise((resolve) => {
