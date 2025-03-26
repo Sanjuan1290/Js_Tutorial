@@ -20,17 +20,23 @@ async function loadPage(){
     // renderOrderSummary()
     // renderPaymentSummary()
 
-    const [_, cartValue] = await Promise.all([
-        loadProductsFetch(),
-
-        new Promise(resolve => {
-            loadCart(() => {
-                resolve("bna")
+    try {
+        // throw 'error 1'
+        const [_, cartValue] = await Promise.all([
+            loadProductsFetch(),
+            
+            new Promise((resolve, reject) => {
+                // throw 'error 2'
+                loadCart(() => {
+                    // reject('error 3')
+                    resolve("bna")
+                })
             })
-        })
-    ])
+        ])
+    }catch (error){
+        console.log(error + " occur");
+    }
 
-    console.log(cartValue);
     renderOrderSummary()
     renderPaymentSummary()
 

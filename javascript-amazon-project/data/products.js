@@ -59,6 +59,8 @@ export function loadProductsFetch(){
       }
       return new Product(productDetails);
     });
+  }).catch((error) => {
+    console.log("error occur: " + error);
   })
 
   console.log('laod Products');
@@ -83,6 +85,9 @@ export function loadProducts(fun){
       });
 
       fun(); // Pass products to the function
+  })
+  xhr.addEventListener('error', (error)=>{
+    console.log(`Error Occur: ${error}. Try again later!`);
   })
 }
 
