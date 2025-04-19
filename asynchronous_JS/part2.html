@@ -6,6 +6,60 @@
     <title>Asynchronouse Js Part 2</title>
 </head>
 <body>
-    
+    <script>
+
+        function postData(){
+            return fetch("https://dummyjson.com/products/add" , {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title: 'Iphone 20',
+                    description: 'add Iphone 20',
+                    price: '1000',
+                    ratig: '9/10'
+                })
+            })
+            .then(response => response.json())
+            .catch(error => console.log(error))
+        }
+        function changeData(){
+            return fetch("https://dummyjson.com/products/1" , {
+                method: 'PUT',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title: 'Iphone 19',
+                    description: 'Change to Iphone 19',
+                    price: '1000',
+                    ratig: '9/10'
+                })
+            })
+            .then(response => response.json())
+            .catch(error => console.log(error))
+        }
+        function getData(){
+            return fetch('https://dummyjson.com/products')
+            .then(response => response.json())
+            .catch(error => {
+                console.log(error);
+            })
+        }
+        async function showData(){
+            const addData = await postData()
+            const modifyData = await changeData()
+            const data = await getData()
+            
+            console.log(addData);
+            console.log(modifyData);
+            console.log(data);
+        }
+
+
+        
+    </script>
+
 </body>
 </html>
