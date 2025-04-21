@@ -4,8 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chuck Norris API</title>
+
+    <style>
+
+        *{
+            padding: 0;
+            margin: 0;
+            font-family: monospace;
+        }
+
+        body{
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        h1{
+            color:rgb(137,198,102) ;
+            margin-bottom: 25px;
+            font-size: 30px;
+        }
+
+        p{
+            margin: auto;
+            background-color: antiquewhite;
+            width: 330px;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        button{
+            position: absolute;
+            border: 1px solid rgb(137,198,102);
+            padding: 10px;
+            background-color: transparent;
+            font-size: 18px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        button:hover{
+            cursor: pointer;
+            background-color: rgba(0, 128, 0, 0.112);
+        }
+        button:active{
+            background-color: transparent;
+        }
+    </style>
 </head>
 <body>
     
+    <h1>Chuck Norris Jokes API</h1>
+
+    <p class="sentence_jokes"></p>
+
+    <button class="loadAnotherBtn">LOAD ANOTHER</button>
+
+
+    <script>
+
+        function fetchChuckNorrisAPI(){
+            return fetch('https://api.chucknorris.io/jokes/random')
+            .then(chuckNorrisRandom => chuckNorrisRandom.json())
+        }
+
+        
+        async function loadAnotherJoke(){
+            const randomJokes = await fetchChuckNorrisAPI()
+            document.querySelector('.sentence_jokes').innerText = randomJokes.value
+        }
+        loadAnotherJoke()
+
+        const loadAnotherBtn_elem = document.querySelector('.loadAnotherBtn')
+        loadAnotherBtn_elem.addEventListener('click', loadAnotherJoke)
+
+
+    </script>
 </body>
 </html>
