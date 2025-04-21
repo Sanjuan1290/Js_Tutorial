@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Products API</title>
+</head>
+<body>
+    
+
+    <script>
+
+        function getProducts(){
+            return fetch('https://supersimplebackend.dev/products')
+            .then(response => response.json()) 
+        }
+
+        
+        async function displayProducts(){
+
+            await getProducts().then(products => {
+                products.forEach(product => {
+                    console.log(product);
+                })
+            })
+        }
+
+        displayProducts()
+    </script>
+</body>
+</html>
