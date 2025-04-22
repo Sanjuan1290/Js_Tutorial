@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather API</title>
+
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .container{
+            background: linear-gradient(to bottom,
+                rgb(138, 126, 221),
+                rgb(148, 133, 247),
+                rgb(139, 122, 248),
+                rgb(123, 105, 242),
+                rgb(111, 91, 238),
+                rgb(101, 80, 239),
+                rgb(88, 65, 237),
+                rgb(80, 56, 241),
+                rgb(67, 41, 236)
+            );
+
+            border-radius: 25px;
+            width: 250px;
+            min-height: 300px;
+            margin: 20px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            padding: 20px 35px;
+        }
+
+        .input-container{
+            display: flex;
+            width: 100%;
+        }
+        .input-container input{
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.586);
+            background-color: transparent;
+            width: 100%;
+            outline: none;
+            padding-bottom: 3px;
+        }
+        .input-container input::placeholder{
+            color: rgba(255, 255, 255, 0.811);
+        }
+        .input-container img{
+            width: 20px;
+            background-color: transparent;
+        }
+
+
+        .date{
+            margin: 13px 0px;
+            font-size: 13px;
+        }
+        .location{
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .tempImg{
+            width: 80px;
+        }
+         .weather{
+            margin-top: -10px;
+         }
+
+         .temperature{
+            font-size: 24px;
+            margin-top: 20px;
+         }
+
+         .high_low-container{
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            margin-top: 25px;
+         }
+
+         .high_low{
+            text-align: center;
+         }
+         .high_low p:nth-of-type(1){
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 5px;
+         }
+
+         .high_low p:nth-of-type(2){
+            font-size: 18px;
+         }
+    </style>
+</head>
+
+<body>
+    
+    <main class="container">
+
+        <div class="input-container">
+            <input class="searchLocationInput" value="philippines" type="text" placeholder="Search Location">
+            <img src="./searchIcon.png">
+        </div>
+
+        <p class="date">May 29, 2024</p>
+        <p class="location">NEWCASTLE</p>
+
+        <img class="tempImg">
+        <p class="weather">Rain</p>
+
+        <p class="temperature">16&#176C</p>
+
+        <div class="high_low-container">
+            <div class="high_low">
+                <p>HIGHS</p>
+                <p class="min_temp">18.38&#176C</p>
+            </div>
+            <div class="high_low">
+                <p>LOWS</p>
+                <p class="max_temp">15.95&#176C</p>
+            </div>
+        </div>
+    </main>
+
+
+    <script>
+        const searchLocation = document.querySelector('.searchLocationInput')
+
+        searchLocation.addEventListener('keydown', (event) => {
+            if(event.key == 'Enter'){
+                displayWeather(searchLocation.value)
+            }
+
+        })
+
+        function fetchWeatherAPI(location){
+            return fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=56c30bd29edbed5546b60df9694ec869`, {
+            headers: {
+                accept: 'application/json'
+            }
+            })
+            .then(response => {
+                if(!response.ok){
+                    throw new Error('Location not found or API error')
+                }
+                
+                return response.json()
+            })
+            .catch(error => {
+                console.log(`'FETCH ERROR:', ${error.message}`)
+                return null
+            })
+        }
+
+
+        async function displayWeather(location){
+        
+            const weatherData = await fetchWeatherAPI(location)
+
+            if(!weatherData || weatherData.cod != '200') {
+                return
+            }
+
+            const currentDate = getCurrentDate();
+            
+            document.querySelector('.location').innerText = searchLocation.value;
+
+            document.querySelector('.tempImg').src = `https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`
+
+            document.querySelector('.weather').innerText = weatherData.weather[0].main; 
+
+            document.querySelector('.date').innerText = `${currentDate[0]} ${currentDate[1]}, ${currentDate[2]}`
+
+            const currentTemp = (weatherData.main.temp - 273.15).toFixed(2);
+            const high_temp = (weatherData.main.temp_max - 273.15).toFixed(2);
+            const low_temp = (weatherData.main.temp_min - 273.15).toFixed(2);
+
+            document.querySelector('.temperature').innerHTML = `${currentTemp}&#176C`;
+            document.querySelector('.max_temp').innerHTML = `${high_temp}&#176C`;
+            document.querySelector('.min_temp').innerHTML = `${low_temp}&#176C`;
+        }
+
+        function getCurrentDate(){
+            const currentDate = new Date()
+
+            const monthList = ['January', 'February', 'March', 'April', 'May', 'June', 
+            'July', 'August', 'September', 'October', 'November', 'December']
+
+            const month = monthList[currentDate.getMonth()]
+            const days = currentDate.getDate();
+            const year = currentDate.getFullYear();
+
+            return [month, days, year]
+        }
+
+
+        displayWeather('philippines')
+    </script>
+</body>
+</html>
