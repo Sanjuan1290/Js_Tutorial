@@ -1,0 +1,299 @@
+
+*{
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    background-color: rgb(242,231,171);
+    overflow-y: hidden;
+}
+
+.container{
+    display: flex;
+    height: fit-content;
+    width: fit-content;
+    margin: 200px auto;
+}
+
+.left-section-container{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(215,49,76);
+    height: 420px;
+    width: 300px;
+    
+    align-items: center;
+}
+
+.left-section-top{
+    background-color: rgb(183,29,48);
+    height: 30px;
+    width: 100%;
+}
+
+.left-section-top-left{
+    background-color: rgb(183,29,48);
+    height: 50px;
+    width: 125px;
+    display: flex;
+    align-items: center;
+    padding-left: 5px;
+    gap: 7px;
+}
+.left-section-top-left div:nth-of-type(1){
+    background-color: rgb(152,200,236);
+    border-radius: 50%;
+    height: 35px;
+    width: 35px;
+    border: 3px solid white;
+    margin-right: 8px;
+}
+
+.left-section-top-left div:nth-of-type(2), 
+.left-section-top-left div:nth-of-type(3),
+.left-section-top-left div:nth-of-type(4){
+    border-radius: 50%;
+    height: 15px;
+    width: 15px;
+}
+.left-section-top-left div:nth-of-type(2){
+    background-color: rgb(208,52,75);
+}
+.left-section-top-left div:nth-of-type(3){
+    background-color: rgb(158,177,124);
+}
+.left-section-top-left div:nth-of-type(4){
+    background-color: rgb(255,197,139);
+}
+
+.image-container{
+    background-color: rgb(228,229,228);
+    width: 220px;
+    height: 150px;
+    margin-top: 50px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-container img{
+    background-color: white;
+    border-radius: 8px;
+    width: 180px;
+    height: 115px;
+    object-fit: fit;
+    margin-top: 10px;
+}
+
+.image-bottom-section{
+    width: 180px;
+    height: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2px;
+}
+
+.image-bottom-section div:nth-of-type(1){
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgb(170,32,63);
+}
+.image-bottom-section div:nth-of-type(2){
+    width: 40px;
+    height: 10px;
+    border-top: 4px solid rgb(193,188,190);
+    border-bottom: 4px solid rgb(193,188,190);
+    background-color: transparent;
+}
+
+
+.left-section-bottom{
+    position: relative;
+    height: 150px;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.left-section-bottom div:nth-of-type(1),
+.left-section-bottom div:nth-of-type(2),
+.left-section-bottom div:nth-of-type(3),
+.left-section-bottom div:nth-of-type(4),
+.left-section-bottom div:nth-of-type(5){
+    position: absolute;
+}
+.left-section-bottom > div:nth-of-type(1){
+    background-color: rgb(93,131,227);
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    left: 20px;
+}
+
+.left-section-bottom > div:nth-of-type(2), .left-section-bottom > div:nth-of-type(3){
+    height: 15px;
+    width: 45px;
+    border-radius: 20px;
+    top: 14px;
+}
+.left-section-bottom > div:nth-of-type(2){
+    background-color: rgb(123,177,106);
+    left: 90px;
+}
+.left-section-bottom > div:nth-of-type(3){
+    background-color: rgb(201,111,79);
+    left: 140px;
+}
+
+.cross{
+    height: 60px;
+    width: 60px;
+    right: 30px;
+    top: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cross > div:nth-child(1){
+    background-color: #434344;
+    height: 100%;
+    width: 15px;
+}
+.cross > div:nth-of-type(2){
+    background-color: #434344;
+    height: 15px;
+    width: 100%;
+}
+
+.left-section-bottom > div:nth-of-type(5){
+    background-color: rgb(206,184,88);
+    height: 40px;
+    width: 120px;
+    bottom: 20px;
+    left: 60px;
+}
+
+.mid-section{
+    background-color: rgb(182,29,50);
+    height: 380px;
+    width: 25px;
+    border-radius: 10px;
+    margin-top: 27px;
+    margin-left: -5px;
+    z-index: -1;
+}
+
+.right-section-container{
+    margin-top: 22px;
+    margin-left: -3px;
+}
+.right-section-container > div:nth-of-type(1){
+    background-color: rgb(214,48,76);
+    width: 200px;
+    height: 30px;
+}
+
+.right-section{
+    height: 370px;
+    width: 300px;
+    background-color: rgb(214,48,76);;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-container{
+    display: flex;
+    height: 40px;
+    margin-top: 40px;
+}
+
+.input-container input{
+    color: black;
+    background-color: rgb(235, 217, 233);
+    padding: 0px 10px;
+    outline: none;
+    border: none;
+    font-size: 15px;
+    width: 190px;
+}
+.input-container input::placeholder{
+    color: white;
+}
+
+.input-container img{
+    background-color:rgb(69,64,65) ;
+    width: 23px;
+    object-fit: contain;
+    padding: 0px 6px;
+}
+
+.grid-img{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 3px;
+    width: 250px;
+    margin-top: 20px;
+}
+
+.grid-img div{
+    background-color: rgb(150,254,252);
+    height: 35px;
+}
+
+.rigth-section-bottom-part{
+    position: relative;
+    background-color: #8e8e93;
+
+    width: calc(100% - 50px);
+    height: 120px;
+    margin-top: 20px;
+}
+
+.rigth-section-bottom-part > div:nth-of-type(1),
+.rigth-section-bottom-part > div:nth-of-type(2),
+.rigth-section-bottom-part > div:nth-of-type(3),
+.rigth-section-bottom-part > div:nth-of-type(4),
+.rigth-section-bottom-part > div:nth-of-type(5){
+    position: absolute;
+}
+
+.rigth-section-bottom-part > div:nth-of-type(1){
+    background-color: rgb(232,230,211);
+    height: 50px;
+    width: 30px;
+    left: 0;
+}
+.rigth-section-bottom-part > div:nth-of-type(2){
+    background-color: rgb(232,230,211);
+    height: 50px;
+    width: 30px;
+    left: 35px;
+}
+.rigth-section-bottom-part > div:nth-of-type(3){
+    background-color: rgb(229,198,105);
+    height: 40px;
+    width: 40px;
+    right: 10px;
+    top: 10px;
+    border-radius: 50%;
+}
+.rigth-section-bottom-part > div:nth-of-type(4){
+    background-color: rgb(71, 73, 73);
+    height: 25px;
+    width: 100px;
+    bottom: 20px;
+    left: 10px;
+}
+.rigth-section-bottom-part > div:nth-of-type(5){
+    background-color: rgb(71, 73, 73);
+    height: 25px;
+    width: 100px;
+    bottom: 20px;
+    right: 0;
+}

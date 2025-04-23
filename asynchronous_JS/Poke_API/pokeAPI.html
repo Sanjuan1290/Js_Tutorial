@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POKE API</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    
+    <div class="container">
+
+        <div class="left-section-container">
+            <div class="left-section-top">
+                <div class="left-section-top-left">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+
+            <div class="image-container">
+                <img class="show-image-js" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png">
+
+                <div class="image-bottom-section">
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+
+            <div class="left-section-bottom">
+                <div></div>
+
+                <div></div>
+                <div></div>
+
+                <div class="cross">
+                    <div></div>
+                    <div></div>
+                </div>
+
+                <div></div>
+            </div>
+        </div>
+
+        <div class="mid-section"></div>
+
+        <div class="right-section-container">
+            <div></div>
+            <div class="right-section">
+                
+                <div class="input-container">
+                    <input class="searchPokemon" type="text" value="pikachu" placeholder="Search">
+                    <img class="searchPokemon-icon-js" src="./searchIcon.png">
+                </div>
+
+                <div class="grid-img">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+
+                <div class="rigth-section-bottom-part">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const searchPokemon_elem = document.querySelector('.searchPokemon');
+
+        function fetchPokeAPI(pokemonName){
+            return fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`, {
+                headers: {
+                    accept: 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .catch(error => {console.log(error);})
+        }
+
+        async function displayPokemon(input){
+            const pokeAPI = await fetchPokeAPI(input);
+
+             
+            document.querySelector('.show-image-js').src = `${pokeAPI.sprites.front_default}`;
+            
+            console.log(pokeAPI.sprites.front_default);
+        }
+
+        searchPokemon_elem.addEventListener('keydown', event => {
+            if(event.key == 'Enter'){
+                displayPokemon(searchPokemon_elem.value)
+            }
+        })
+
+        document.querySelector('.searchPokemon-icon-js').addEventListener('click', () => {
+            displayPokemon(searchPokemon_elem.value)
+        })
+
+    </script>
+</body>
+</html>
